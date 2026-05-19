@@ -10,7 +10,7 @@ import uuid
 router = APIRouter()
 
 def generate_booking_ref() -> str:
-    return "BK-" + str(uuid.uuid4())[:8].upper()
+    return "ALLOT-" + str(uuid.uuid4())[:4].upper()
 
 def get_booked_count(db: Session, room_type_id: int, check_in, check_out) -> int:
     return db.query(Booking).filter(

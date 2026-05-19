@@ -6,7 +6,6 @@ class HotelBase(BaseModel):
     name: str
     city: str
     country: str
-    star_rating: Optional[int] = None
     address: Optional[str] = None
 
 class HotelCreate(HotelBase):
@@ -26,9 +25,18 @@ class RoomTypeBase(BaseModel):
 class RoomTypeCreate(RoomTypeBase):
     hotel_id: int
 
+class HotelBasic(BaseModel):
+    id: int
+    name: str
+    city: str
+    address: Optional[str] = None
+    class Config:
+        from_attributes = True
+
 class RoomTypeResponse(RoomTypeBase):
     id: int
     hotel_id: int
+    hotel: HotelBasic
     class Config:
         from_attributes = True
 

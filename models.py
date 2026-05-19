@@ -8,7 +8,6 @@ class Hotel(Base):
     name = Column(String, nullable=False)
     city = Column(String, nullable=False)
     country = Column(String, nullable=False)
-    star_rating = Column(Integer)
     address = Column(String)
     rooms = relationship("RoomType", back_populates="hotel")
 

@@ -11,7 +11,6 @@ router = APIRouter()
 def list_hotels(
     city: Optional[str] = None,
     country: Optional[str] = None,
-    star_rating: Optional[int] = None,
     db: Session = Depends(get_db)
 ):
     query = db.query(Hotel)
@@ -19,8 +18,6 @@ def list_hotels(
         query = query.filter(Hotel.city.ilike(f"%{city}%"))
     if country:
         query = query.filter(Hotel.country.ilike(f"%{country}%"))
-    if star_rating:
-        query = query.filter(Hotel.star_rating == star_rating)
     return query.all()
 
 @router.get("/{hotel_id}", response_model=HotelResponse)
