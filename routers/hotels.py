@@ -26,11 +26,3 @@ def get_hotel(hotel_id: int, db: Session = Depends(get_db)):
     if not hotel:
         raise HTTPException(status_code=404, detail="Hotel not found")
     return hotel
-
-@router.post("/", response_model=HotelResponse)
-def create_hotel(hotel: HotelCreate, db: Session = Depends(get_db)):
-    db_hotel = Hotel(**hotel.model_dump())
-    db.add(db_hotel)
-    db.commit()
-    db.refresh(db_hotel)
-    return db_hotel
