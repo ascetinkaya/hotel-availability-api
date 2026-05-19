@@ -23,16 +23,16 @@ This project does not aim any commercial profit, but personal development in API
 |--------|----------|-------------|
 | GET | /hotels | List hotels with filters |
 | GET | /hotels/{id} | Hotel detail |
-| POST | /hotels | Create hotel | 🔒 |
+| POST | /hotels | Create hotel | AUTH |
 | GET | /availability | Search availability |
 | GET | /availability/{hotel_id}/rooms | Room breakdown |
 | POST | /bookings | Create booking |
-| GET | /bookings | List all bookings | 🔒 |
+| GET | /bookings | List all bookings | AUTH |
 | GET | /bookings/{booking_ref} | Get booking |
 | DELETE | /bookings/{booking_ref} | Cancel booking |
 | GET | /health | Health check |
 
-> 🔒 Authentication required — not yet implemented, planned for v1.1
+> AUTH: Authentication required — not yet implemented, planned for v1.1
 
 ## Roadmap
 
