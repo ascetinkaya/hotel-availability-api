@@ -19,20 +19,20 @@ This project does not aim any commercial profit, but personal development in API
 
 ## Endpoints
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | /hotels | List hotels with filters |
-| GET | /hotels/{id} | Hotel detail |
-| POST | /hotels | Create hotel | AUTH |
-| GET | /availability | Search availability |
-| GET | /availability/{hotel_id}/rooms | Room breakdown |
-| POST | /bookings | Create booking |
-| GET | /bookings | List all bookings | AUTH |
-| GET | /bookings/{booking_ref} | Get booking |
-| DELETE | /bookings/{booking_ref} | Cancel booking |
-| GET | /health | Health check |
+| Method | Endpoint | Description | Access |
+|--------|----------|-------------|--------|
+| GET | /hotels | List hotels with filters | Public |
+| GET | /hotels/{id} | Hotel detail | Public |
+| POST | /hotels | Create hotel | Auth |
+| GET | /availability | Search availability | Public |
+| GET | /availability/{hotel_id}/rooms | Room breakdown | Public |
+| POST | /bookings | Create booking | Public |
+| GET | /bookings | List all bookings | Auth |
+| GET | /bookings/{booking_ref} | Get booking | Public |
+| DELETE | /bookings/{booking_ref} | Cancel booking | Public |
+| GET | /health | Health check | Public |
 
-> AUTH: Authentication required — not yet implemented, planned for v1.1
+> Auth: Authentication required — not yet implemented, planned for v1.1
 
 ## Roadmap
 
