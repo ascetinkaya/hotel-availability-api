@@ -16,4 +16,4 @@ app.include_router(bookings.router, prefix="/bookings", tags=["Bookings"])
 
 @app.get("/health")
 def health_check():
-    return {"status": "ok", "version": "1.0.0"}
+    return {"status": "ok", "version": "1.0"}

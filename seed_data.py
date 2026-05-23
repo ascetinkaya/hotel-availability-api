@@ -51,7 +51,7 @@ db.refresh(hotel5)
 rooms = [
     RoomType(hotel_id=hotel1.id, name="Standard Room", max_occupancy=2, price_per_night=100.0, total_inventory=10),
     RoomType(hotel_id=hotel1.id, name="Deluxe Room", max_occupancy=2, price_per_night=200.0, total_inventory=5),
-    RoomType(hotel_id=hotel1.id, name="Suite", max_occupancy=4, price_per_night=300.0, total_inventory=3),
+    RoomType(hotel_id=hotel1.id, name="Suite", max_occupancy=4, price_per_night=300.0, total_inventory=2),
     RoomType(hotel_id=hotel2.id, name="Standard Room", max_occupancy=2, price_per_night=90.0, total_inventory=15),
     RoomType(hotel_id=hotel2.id, name="Executive Room", max_occupancy=2, price_per_night=180.0, total_inventory=8),
     RoomType(hotel_id=hotel3.id, name="Standard Room", max_occupancy=2, price_per_night=100.0, total_inventory=10),
