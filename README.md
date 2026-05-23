@@ -38,6 +38,7 @@ This project does not aim any commercial profit, but personal development in API
 - Partner identity — bookings tied to the partner who created them
 - Partners can only list their own bookings
 - Admin role with full access
+- Admin endpoints to manage hotels and room inventory without database reset (PATCH /hotels/{id}, PATCH /rooms/{room_id})
 
 ## Running Locally
 
