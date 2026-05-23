@@ -40,6 +40,26 @@ This project does not aim any commercial profit, but personal development in API
 - Admin role with full access
 - Admin endpoints to manage hotels and room inventory without database reset (PATCH /hotels/{id}, PATCH /rooms/{room_id})
 
+### v1.2
+- Pagination on list endpoints
+- Multi-property availability search by city (no hotel_id required)
+- Rate plans (non-refundable, free cancellation, breakfast included)
+- Multi-room booking (book multiple rooms in one request)
+
+### v1.3
+- Per person pricing (price varies by occupancy)
+- RateID implementation — rate integrity between search and booking steps
+- Swap SQLite for PostgreSQL
+
+### v1.4
+- Date-based rate calendar (different prices per date range)
+
+### v2.0
+- Migrate to push-based supplier model
+- Hotels and room data managed by an external supplier(a new dedicated API)
+- Supplier API pushes inventory and rate updates via dedicated endpoints
+- AllotmentAPI becomes a pure distribution layer
+
 ## Running Locally
 
 ```bash
