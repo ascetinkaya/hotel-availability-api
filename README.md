@@ -42,7 +42,7 @@ This project does not aim any commercial profit, but personal development in API
 
 ### v1.2
 - Pagination on list endpoints
-- Multi-property availability search by city (no hotel_id required)
+- Multi-property availability search by city (no hotel_id required) - consider POST-based search endpoint for complex filter support
 - Rate plans (non-refundable, free cancellation, breakfast included)
 - Multi-room booking (book multiple rooms in one request)
 
