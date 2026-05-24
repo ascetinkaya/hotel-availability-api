@@ -4,6 +4,8 @@ from routers import hotels, availability, bookings
 
 Base.metadata.create_all(bind=engine)
 
+import seed_data
+
 app = FastAPI(
     title="AllotmentAPI Project",
     description="A B2B hotel distribution API for searching availability and managing bookings",
