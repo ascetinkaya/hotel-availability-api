@@ -49,7 +49,7 @@ This project does not aim any commercial profit, but personal development in API
 ### v1.3
 - Per person pricing (price varies by occupancy)
 - RateID implementation — rate integrity between search and booking steps
-- Swap SQLite for PostgreSQL
+- Migrate to PostgreSQL for persistent storage (currently SQLite resets on redeployment)
 
 ### v1.4
 - Date-based rate calendar (different prices per date range)
@@ -60,14 +60,8 @@ This project does not aim any commercial profit, but personal development in API
 - Supplier API pushes inventory and rate updates via dedicated endpoints
 - AllotmentAPI becomes a pure distribution layer
 
-## Running Locally
+## Live API
 
-```bash
-python -m venv venv
-venv\Scripts\activate
-pip install fastapi uvicorn sqlalchemy pydantic
-python seed_data.py
-uvicorn main:app --reload
-```
+Base URL: `https://allotment-api-production.up.railway.app`
 
-Visit `http://127.0.0.1:8000/docs` to explore the API.
+Interactive docs: `https://allotment-api-production.up.railway.app/docs`
