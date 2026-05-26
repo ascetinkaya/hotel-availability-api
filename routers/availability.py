@@ -19,7 +19,7 @@ def get_booked_count(db: Session, room_type_id: int, check_in: date, check_out: 
         )
     ).count()
 
-@router.get("", response_model=List[AvailabilityResponse])
+@router.get("", response_model=List[AvailabilityResponse]), summary="Search Hotel Availability"
 def search_availability(
     hotel_id: int,
     check_in: date,
@@ -58,39 +58,5 @@ def search_availability(
                 total_nights=total_nights,
                 total_price=round(room.price_per_night * total_nights, 2)
             ))
-
-    return results
-
-@router.get("/{hotel_id}/rooms", response_model=List[AvailabilityResponse])
-def get_hotel_rooms(
-    hotel_id: int,
-    check_in: date,
-    check_out: date,
-    db: Session = Depends(get_db)
-):
-    if check_out <= check_in:
-        raise HTTPException(status_code=400, detail="Check_out must be after check_in.")
-
-    if check_in < date.today():
-        raise HTTPException(status_code=400, detail="Check_in cannot be in the past.")
-
-    total_nights = (check_out - check_in).days
-    room_types = db.query(RoomType).filter(RoomType.hotel_id == hotel_id).all()
-
-    if not room_types:
-        raise HTTPException(status_code=404, detail="This room is not available.")
-
-    results = []
-    for room in room_types:
-        booked = get_booked_count(db, room.id, check_in, check_out)
-        available = room.total_inventory - booked
-        results.append(AvailabilityResponse(
-            room_type_id=room.id,
-            room_name=room.name,
-            price_per_night=room.price_per_night,
-            available_rooms=available,
-            total_nights=total_nights,
-            total_price=round(room.price_per_night * total_nights, 2)
-        ))
 
     return results

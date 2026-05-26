@@ -23,7 +23,7 @@ def get_booked_count(db: Session, room_type_id: int, check_in, check_out) -> int
         )
     ).count()
 
-@router.post("", response_model=BookingResponse)
+@router.post("", response_model=BookingResponse), summary="Create Booking"
 def create_booking(booking: BookingCreate, db: Session = Depends(get_db)):
     if booking.check_in < date.today():
         raise HTTPException(status_code=400, detail="Check_in cannot be in the past.")
@@ -56,18 +56,18 @@ def create_booking(booking: BookingCreate, db: Session = Depends(get_db)):
     db.refresh(db_booking)
     return db_booking
 
-@router.get("", response_model=List[BookingResponse])
+@router.get("", response_model=List[BookingResponse]), summary="List Bookings"
 def list_bookings(db: Session = Depends(get_db)):
     return db.query(Booking).all()
 
-@router.get("/{booking_ref}", response_model=BookingResponse)
+@router.get("/{booking_ref}", response_model=BookingResponse), summary="Get Booking"
 def get_booking(booking_ref: str, db: Session = Depends(get_db)):
     booking = db.query(Booking).filter(Booking.booking_ref == booking_ref).first()
     if not booking:
         raise HTTPException(status_code=404, detail="Booking not found.")
     return booking
 
-@router.delete("/{booking_ref}", response_model=BookingResponse)
+@router.delete("/{booking_ref}", response_model=BookingResponse), summary="Cancel Booking"
 def cancel_booking(booking_ref: str, db: Session = Depends(get_db)):
     booking = db.query(Booking).filter(Booking.booking_ref == booking_ref).first()
     if not booking:
