@@ -7,7 +7,7 @@ from typing import List, Optional
 
 router = APIRouter()
 
-@router.get("", response_model=List[HotelResponse]), summary="List Hotels"
+@router.get("", response_model=List[HotelResponse], summary="List Hotels")
 def list_hotels(
     city: Optional[str] = None,
     country: Optional[str] = None,
@@ -20,7 +20,7 @@ def list_hotels(
         query = query.filter(Hotel.country.ilike(f"%{country}%"))
     return query.all()
 
-@router.get("/{hotel_id}", response_model=HotelResponse), summary="Get Hotel by ID"
+@router.get("/{hotel_id}", response_model=HotelResponse, summary="Get Hotel by ID")
 def get_hotel(hotel_id: int, db: Session = Depends(get_db)):
     hotel = db.query(Hotel).filter(Hotel.id == hotel_id).first()
     if not hotel:
