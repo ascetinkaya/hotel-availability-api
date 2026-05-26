@@ -44,6 +44,7 @@ This project does not aim any commercial profit, but personal development in API
 - Pagination on list endpoints
 - Multi-property availability search by city (no hotel_id required) - consider POST-based search endpoint for complex filter support
 - Rate plans (non-refundable, free cancellation, breakfast included)
+- Cancellation policies per rate plan (free cancellation, partially refundable, non-refundable)
 - Multi-room booking (book multiple rooms in one request)
 
 ### v1.3

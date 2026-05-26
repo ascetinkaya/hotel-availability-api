@@ -5,6 +5,7 @@ from database import get_db
 from models import Booking, RoomType
 from schemas import BookingCreate, BookingResponse
 from typing import List
+from datetime import date
 import uuid
 
 router = APIRouter()
@@ -24,8 +25,11 @@ def get_booked_count(db: Session, room_type_id: int, check_in, check_out) -> int
 
 @router.post("", response_model=BookingResponse)
 def create_booking(booking: BookingCreate, db: Session = Depends(get_db)):
+    if booking.check_in < date.today():
+        raise HTTPException(status_code=400, detail="Check_in cannot be in the past.")
+
     if booking.check_out <= booking.check_in:
-        raise HTTPException(status_code=400, detail="check_out must be after check_in")
+        raise HTTPException(status_code=400, detail="Check_out must be after check_in.")
 
     room = db.query(RoomType).filter(RoomType.id == booking.room_type_id).first()
     if not room:
@@ -37,7 +41,7 @@ def create_booking(booking: BookingCreate, db: Session = Depends(get_db)):
     booked = get_booked_count(db, room.id, booking.check_in, booking.check_out)
     available = room.total_inventory - booked
     if available <= 0:
-        raise HTTPException(status_code=409, detail="No availability for selected dates")
+        raise HTTPException(status_code=409, detail="No availability for selected dates.")
 
     db_booking = Booking(
         booking_ref=generate_booking_ref(),
@@ -60,16 +64,16 @@ def list_bookings(db: Session = Depends(get_db)):
 def get_booking(booking_ref: str, db: Session = Depends(get_db)):
     booking = db.query(Booking).filter(Booking.booking_ref == booking_ref).first()
     if not booking:
-        raise HTTPException(status_code=404, detail="Booking not found")
+        raise HTTPException(status_code=404, detail="Booking not found.")
     return booking
 
 @router.delete("/{booking_ref}", response_model=BookingResponse)
 def cancel_booking(booking_ref: str, db: Session = Depends(get_db)):
     booking = db.query(Booking).filter(Booking.booking_ref == booking_ref).first()
     if not booking:
-        raise HTTPException(status_code=404, detail="Booking not found")
+        raise HTTPException(status_code=404, detail="Booking not found.")
     if booking.is_cancelled:
-        raise HTTPException(status_code=400, detail="Booking is already cancelled")
+        raise HTTPException(status_code=400, detail="Booking is already cancelled.")
 
     booking.is_cancelled = True
     db.commit()

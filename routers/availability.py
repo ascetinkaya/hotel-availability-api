@@ -28,7 +28,10 @@ def search_availability(
     db: Session = Depends(get_db)
 ):
     if check_out <= check_in:
-        raise HTTPException(status_code=400, detail="check_out must be after check_in")
+        raise HTTPException(status_code=400, detail="Check_out must be after check_in.")
+
+    if check_in < date.today():
+        raise HTTPException(status_code=400, detail="Check_in cannot be in the past.")
 
     total_nights = (check_out - check_in).days
 
@@ -40,7 +43,7 @@ def search_availability(
     ).all()
 
     if not room_types:
-        raise HTTPException(status_code=404, detail="No rooms found for this hotel")
+        raise HTTPException(status_code=404, detail="No rooms available for this hotel.")
 
     results = []
     for room in room_types:
@@ -66,13 +69,16 @@ def get_hotel_rooms(
     db: Session = Depends(get_db)
 ):
     if check_out <= check_in:
-        raise HTTPException(status_code=400, detail="check_out must be after check_in")
+        raise HTTPException(status_code=400, detail="Check_out must be after check_in.")
+
+    if check_in < date.today():
+        raise HTTPException(status_code=400, detail="Check_in cannot be in the past.")
 
     total_nights = (check_out - check_in).days
     room_types = db.query(RoomType).filter(RoomType.hotel_id == hotel_id).all()
 
     if not room_types:
-        raise HTTPException(status_code=404, detail="No rooms found for this hotel")
+        raise HTTPException(status_code=404, detail="This room is not available.")
 
     results = []
     for room in room_types:
