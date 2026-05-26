@@ -64,4 +64,7 @@ This project does not aim any commercial profit, but personal development in API
 
 Base URL: `https://allotment-api-production.up.railway.app`
 
-Interactive docs: `https://allotment-api-production.up.railway.app/docs`
+## Documentation
+
+- Interactive docs (Swagger UI): `https://allotment-api-production.up.railway.app/docs`
+- Postman documentation: `https://documenter.getpostman.com/view/52203054/2sBXwmQsxZ`

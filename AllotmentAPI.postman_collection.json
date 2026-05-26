@@ -2,7 +2,7 @@
   "info": {
     "_postman_id": "c1eee98a-fe99-4526-bfc4-13b7e3bad6b5",
     "name": "AllotmentAPI",
-    "description": "The AllotmentAPI is JSON-based RESTful API, allowing searching for availability of test hotels, creating and managing bookings.\n\n## Folders\n\n- **Hotels** – Retrieve hotel listings and individual hotel details.\n    \n- **Availability** – Search for available rooms across hotels and dates.\n    \n- **Bookings** – Create, retrieve, list, and cancel bookings.\n    \n\n## Variables\n\n| Variable | Description |\n| --- | --- |\n| `base_url` | The root URL of the AllotmentAPI server. ([https://allotment-api-production.up.railway.app](https://allotment-api-production.up.railway.app)) |\n| `booking_ref` | A booking reference code, automatically set after a successful Create Booking call. It can be set manually to manage booking. |\n\n## Workflow\n\n1. Use **List Hotels** to list hotels in the database. Use **Get Hotel by ID** to get information about a specific hotel by entering hotel ID.\n    \n2. Use **Search Hotel Availability** to check hotel availability for the selected dates. Use **Search Room Availability** to check room availability for the selected dates.\n    \n3. Use **Create Booking** to reserve a room — the `booking_ref` variable is automatically captured.\n    \n4. Use **Get Booking** to retrieve booking details, or **Cancel Booking** to cancel it.",
+    "description": "The AllotmentAPI is a JSON-based RESTful API, allowing searching for availability of test hotels, creating and managing bookings.\n\n## Folders\n\n- **Hotels** – Retrieve hotel listings and individual hotel details.\n    \n- **Availability** – Search for available rooms across hotels and dates.\n    \n- **Bookings** – Create, retrieve, list, and cancel bookings.\n    \n\n## Variables\n\n| Variable | Description |\n| --- | --- |\n| `base_url` | The root URL of the AllotmentAPI server. ([https://allotment-api-production.up.railway.app](https://allotment-api-production.up.railway.app)) |\n| `booking_ref` | A booking reference code, automatically set after a successful Create Booking call. It can be set manually to manage bookings. |\n\n## Workflow\n\n1. Use **List Hotels** to list hotels in the database. Use **Get Hotel by ID** to get information about a specific hotel by entering hotel ID.\n    \n2. Use **Search Hotel Availability** to check hotel availability for the selected dates.\n    \n3. Use **Create Booking** to reserve a room — the `booking_ref` variable is automatically captured.\n    \n4. Use **Get Booking** to retrieve booking details, or **Cancel Booking** to cancel it.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "_exporter_id": "52203054"
   },
@@ -24,7 +24,7 @@
                 "hotels"
               ]
             },
-            "description": "Returns a list of all existing hotels in the database. Use this endpoint to browse the full hotel inventory.\n\n**Returns:** An array of hotel objects, each containing the hotel ID, name, location, and other metadata."
+            "description": "Use this endpoint to browse the full hotel inventory.\n\n**Returns:** A list of all existing hotels in the database."
           },
           "response": []
         },
@@ -43,12 +43,12 @@
                 "1"
               ]
             },
-            "description": "Retrieves detailed information for a single hotel identified by its numeric ID.\n\n**Path Parameters:**  \n| Parameter | Type | Description |  \n|---|---|---|  \n| `id` | integer | The unique identifier of the hotel (e.g. `1`) |\n\n**Returns:** A hotel with full available details."
+            "description": "Hotel ID must be used in request.\n\n**Path Parameters:**  \n| Parameter | Type | Description |  \n|---|---|---|  \n| `id` | integer | The unique identifier of the hotel (e.g. `1`) |\n\n**Returns:** A hotel with full available details."
           },
           "response": []
         }
       ],
-      "description": "Endpoints for discovering and retrieving hotel information. Use these endpoints to browse the full list of available hotels or fetch details for a specific hotel by its ID."
+      "description": "Endpoints for discovering and retrieving hotel information. Use these endpoints to browse the full list of existing hotels or fetch details for a specific hotel by its ID."
     },
     {
       "name": "Availability",
@@ -85,12 +85,12 @@
                 }
               ]
             },
-            "description": "Searches for available room types at a specific hotel for a given date range and number of guests.\n\n**Query Parameters:**\n| Parameter | Type | Required | Description |\n|---|---|---|---|\n| `hotel_id` | integer | Yes | The ID of the hotel to search |\n| `check_in` | string (YYYY-MM-DD) | Yes | The check-in date |\n| `check_out` | string (YYYY-MM-DD) | Yes | The check-out date |\n| `pax` | integer | Yes | Number of guests |\n\n**Returns:** A list of available room types with pricing and availability details."
+            "description": "Searches for available room types at a specific hotel for a given date range and number of guests.\n\n**Query Parameters:**  \n| Parameter | Type | Required | Description |  \n|---|---|---|---|  \n| `hotel_id` | integer | Yes | The ID of the hotel to search |  \n| `check_in` | string (YYYY-MM-DD) | Yes | The check-in date |  \n| `check_out` | string (YYYY-MM-DD) | Yes | The check-out date |  \n| `pax` | integer | Yes | Number of guests |\n\n**Returns:** A list of available room types with pricing and availability details.\n\nParams below is an example of parameters listed above."
           },
           "response": []
         }
       ],
-      "description": "Endpoints for checking room availability. Use these endpoints to search for available room types across a hotel for a given date range and number of guests, or to list all rooms for a specific hotel."
+      "description": "An endpoint for checking room availability."
     },
     {
       "name": "Bookings",
@@ -132,7 +132,7 @@
                 "bookings"
               ]
             },
-            "description": "Creates a new booking for a specific room type. On success, the `booking_ref` collection variable is automatically captured from the response for use in subsequent requests.\n\n**Request Body (JSON):**  \n| Field | Type | Required | Description |  \n|---|---|---|---|  \n| `room_type_id` | integer | Yes | The ID of the room type to book |  \n| `guest_name` | string | Yes | Full name of the primary guest |  \n| `check_in` | string (YYYY-MM-DD) | Yes | The check-in date |  \n| `check_out` | string (YYYY-MM-DD) | Yes | The check-out date |  \n| `pax` | integer | Yes | Number of guests |\n\nThe room_type_id can be fetched after searching hotel availability.\n\n**Example Body:**\n\n``` json\n{\n  \"room_type_id\": 4,\n  \"guest_name\": \"Test Guest\",\n  \"check_in\": \"2026-09-01\",\n  \"check_out\": \"2026-09-05\",\n  \"pax\": 2\n}\n\n ```\n\n**Returns:** A booking confirmation object including the `booking_ref` reference code.\n\n> **Note:** The test script on this request automatically saves the `booking_ref` from the response into the `booking_ref` collection variable."
+            "description": "Creates a new booking. On success, the `booking_ref` collection variable is automatically captured from the response for use in subsequent requests.\n\nThe **room_type_id** can be fetched after searching hotel availability.\n\n**Request Body (JSON):**  \n| Field | Type | Required | Description |  \n|---|---|---|---|  \n| `room_type_id` | integer | Yes | The ID of the room type to book |  \n| `guest_name` | string | Yes | Full name of the primary guest |  \n| `check_in` | string (YYYY-MM-DD) | Yes | The check-in date |  \n| `check_out` | string (YYYY-MM-DD) | Yes | The check-out date |  \n| `pax` | integer | Yes | Number of guests |\n\n**Example Body:**\n\n``` json\n{\n  \"room_type_id\": 4,\n  \"guest_name\": \"Test Guest\",\n  \"check_in\": \"2026-09-01\",\n  \"check_out\": \"2026-09-05\",\n  \"pax\": 2\n}\n\n ```\n\n**Returns:** A booking confirmation object including the `booking_ref` reference code.\n\n> **Note:** The test script on this request automatically saves the `booking_ref` from the response into the `booking_ref` collection variable."
           },
           "response": []
         },
@@ -150,7 +150,7 @@
                 "bookings"
               ]
             },
-            "description": "Returns a list of all bookings in the system.\n\n**Returns:** An array of bookings, each containing the booking reference, guest details, room type, dates, and status."
+            "description": "**Returns:** The list of all bookings in the database."
           },
           "response": []
         },
@@ -169,7 +169,7 @@
                 "{{booking_ref}}"
               ]
             },
-            "description": "Retrieves the details of a specific booking using its reference code.\n\n**Path Parameters:**  \n| Parameter | Type | Description |  \n|---|---|---|  \n| `booking_ref` | string | The unique booking reference code. Automatically populated from the `booking_ref` collection variable after a Create Booking call. |\n\n**Returns:** A booking object with full details including guest name, room type, dates, and current status."
+            "description": "Reference ID of a specific booking must be used in request.\n\n**Path Parameters:**  \n| Parameter | Type | Description |  \n|---|---|---|  \n| `booking_ref` | string | The unique booking reference code. Automatically populated from the `booking_ref` collection variable after a Create Booking call. |\n\n**Returns:** The details of a specific booking."
           },
           "response": []
         },
@@ -188,7 +188,7 @@
                 "{{booking_ref}}"
               ]
             },
-            "description": "Cancels an existing booking identified by its reference code.\n\n**Path Parameters:**\n| Parameter | Type | Description |\n|---|---|---|\n| `booking_ref` | string | The unique booking reference code. Automatically populated from the `booking_ref` collection variable after a Create Booking call. |\n\n**Returns:** A confirmation that the booking has been cancelled, or an error if the booking does not exist or cannot be cancelled."
+            "description": "Cancels an existing booking identified by its reference code.\n\n**Path Parameters:**  \n| Parameter | Type | Description |  \n|---|---|---|  \n| `booking_ref` | string | The unique booking reference code. Automatically populated from the `booking_ref` collection variable after a Create Booking call. |\n\n**Returns:** A confirmation that the booking has been cancelled, or an error if the booking does not exist or cannot be cancelled."
           },
           "response": []
         }
