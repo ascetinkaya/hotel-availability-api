@@ -8,7 +8,9 @@ import seed_data
 
 app = FastAPI(
     title="AllotmentAPI Project",
-    description="A B2B hotel distribution API for searching availability and managing bookings",
+    description="""A B2B hotel distribution API for searching availability and managing bookings.
+
+Built by [ascetinkaya](https://github.com/ascetinkaya) — source code available on [GitHub](https://github.com/ascetinkaya/allotment-api).""",
     version="1.0"
 )
 
