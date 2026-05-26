@@ -7,7 +7,7 @@ from schemas import BookingCreate, BookingResponse
 from typing import List
 import uuid
 
-router = APIRouter()
+router = APIRouter(redirect_slashes=False)
 
 def generate_booking_ref() -> str:
     return "ALLOT-" + str(uuid.uuid4())[:4].upper()

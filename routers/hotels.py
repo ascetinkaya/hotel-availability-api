@@ -5,7 +5,7 @@ from models import Hotel
 from schemas import HotelCreate, HotelResponse
 from typing import List, Optional
 
-router = APIRouter()
+router = APIRouter(redirect_slashes=False)
 
 @router.get("/", response_model=List[HotelResponse])
 def list_hotels(

@@ -12,9 +12,9 @@ app = FastAPI(
     version="1.0"
 )
 
-app.include_router(hotels.router, prefix="/hotels", tags=["Hotels"], redirect_slashes=False)
-app.include_router(availability.router, prefix="/availability", tags=["Availability"], redirect_slashes=False)
-app.include_router(bookings.router, prefix="/bookings", tags=["Bookings"], redirect_slashes=False)
+app.include_router(hotels.router, prefix="/hotels", tags=["Hotels"])
+app.include_router(availability.router, prefix="/availability", tags=["Availability"])
+app.include_router(bookings.router, prefix="/bookings", tags=["Bookings"])
 
 @app.get("/health")
 def health_check():

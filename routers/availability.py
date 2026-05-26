@@ -7,7 +7,7 @@ from schemas import AvailabilityResponse
 from typing import List
 from datetime import date
 
-router = APIRouter()
+router = APIRouter(redirect_slashes=False)
 
 def get_booked_count(db: Session, room_type_id: int, check_in: date, check_out: date) -> int:
     return db.query(Booking).filter(
