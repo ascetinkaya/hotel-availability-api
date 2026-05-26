@@ -75,8 +75,3 @@ def cancel_booking(booking_ref: str, db: Session = Depends(get_db)):
     db.commit()
     db.refresh(booking)
     return booking
-
-    booking.is_cancelled = True
-    db.commit()
-    db.refresh(db_booking)
-    return booking
