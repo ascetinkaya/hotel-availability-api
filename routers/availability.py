@@ -19,7 +19,7 @@ def get_booked_count(db: Session, room_type_id: int, check_in: date, check_out: 
         )
     ).count()
 
-@router.get("", response_model=List[AvailabilityResponse]), summary="Search Hotel Availability"
+@router.get("", response_model=List[AvailabilityResponse], summary="Search Hotel Availability")
 def search_availability(
     hotel_id: int,
     check_in: date,
