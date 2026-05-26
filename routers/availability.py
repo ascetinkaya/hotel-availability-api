@@ -7,7 +7,7 @@ from schemas import AvailabilityResponse
 from typing import List
 from datetime import date
 
-router = APIRouter(redirect_slashes=False)
+router = APIRouter()
 
 def get_booked_count(db: Session, room_type_id: int, check_in: date, check_out: date) -> int:
     return db.query(Booking).filter(
@@ -19,7 +19,7 @@ def get_booked_count(db: Session, room_type_id: int, check_in: date, check_out: 
         )
     ).count()
 
-@router.get("/", response_model=List[AvailabilityResponse])
+@router.get("", response_model=List[AvailabilityResponse])
 def search_availability(
     hotel_id: int,
     check_in: date,

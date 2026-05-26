@@ -7,7 +7,7 @@ from schemas import BookingCreate, BookingResponse
 from typing import List
 import uuid
 
-router = APIRouter(redirect_slashes=False)
+router = APIRouter()
 
 def generate_booking_ref() -> str:
     return "ALLOT-" + str(uuid.uuid4())[:4].upper()
@@ -22,7 +22,7 @@ def get_booked_count(db: Session, room_type_id: int, check_in, check_out) -> int
         )
     ).count()
 
-@router.post("/", response_model=BookingResponse)
+@router.post("", response_model=BookingResponse)
 def create_booking(booking: BookingCreate, db: Session = Depends(get_db)):
     if booking.check_out <= booking.check_in:
         raise HTTPException(status_code=400, detail="check_out must be after check_in")
@@ -52,7 +52,7 @@ def create_booking(booking: BookingCreate, db: Session = Depends(get_db)):
     db.refresh(db_booking)
     return db_booking
 
-@router.get("/", response_model=List[BookingResponse])
+@router.get("", response_model=List[BookingResponse])
 def list_bookings(db: Session = Depends(get_db)):
     return db.query(Booking).all()
 
