@@ -43,7 +43,7 @@
                 "1"
               ]
             },
-            "description": "Hotel ID must be used in request.\n\n**Path Parameters:**  \n| Parameter | Type | Description |  \n|---|---|---|  \n| `id` | integer | The unique identifier of the hotel (e.g. `1`) |\n\n**Returns:** A hotel with full available details."
+            "description": "Hotel ID must be entered in path.\n\n**Path Parameters:**  \n| Parameter | Type | Description |  \n|---|---|---|  \n| `id` | integer | The unique identifier of the hotel (e.g. `1`) |\n\n**Returns:** A hotel with full available details."
           },
           "response": []
         }
@@ -85,7 +85,7 @@
                 }
               ]
             },
-            "description": "Searches for available room types at a specific hotel for a given date range and number of guests.\n\n**Query Parameters:**  \n| Parameter | Type | Required | Description |  \n|---|---|---|---|  \n| `hotel_id` | integer | Yes | The ID of the hotel to search |  \n| `check_in` | string (YYYY-MM-DD) | Yes | The check-in date |  \n| `check_out` | string (YYYY-MM-DD) | Yes | The check-out date |  \n| `pax` | integer | Yes | Number of guests |\n\n**Returns:** A list of available room types with pricing and availability details.\n\nParams below is an example of parameters listed above."
+            "description": "Searches for available room types at a specific hotel for a given date range and number of guests.\n\n**Query Parameters:**  \n| Parameter | Type | Required | Description |  \n|---|---|---|---|  \n| `hotel_id` | integer | Yes | The ID of the hotel to search |  \n| `check_in` | string (YYYY-MM-DD) | Yes | The check-in date |  \n| `check_out` | string (YYYY-MM-DD) | Yes | The check-out date |  \n| `pax` | integer | Yes | Number of guests |\n\n**Returns:** A list of available room types with pricing and availability details.\n\nParams below is an **example** of query parameters listed above."
           },
           "response": []
         }
