@@ -21,9 +21,9 @@ This project does not aim any commercial profit, but personal development in API
 
 | Method | Endpoint | Description | Access |
 |--------|----------|-------------|--------|
-| GET | /hotels | List hotels with filters | Public |
+| GET | /hotels | List hotels | Public |
 | GET | /hotels/{id} | Hotel detail | Public |
-| GET | /availability | Search availability | Public |
+| GET | /availability | Search Hotel Availability | Public |
 | POST | /bookings | Create booking | Public |
 | GET | /bookings | List all bookings | Public(Authentication is planned.) |
 | GET | /bookings/{booking_ref} | Get booking | Public |
@@ -34,16 +34,15 @@ This project does not aim any commercial profit, but personal development in API
 
 ### v1.1
 - API key authentication for protected endpoints
-- Partner identity — bookings tied to the partner who created them
-- Partners can only list their own bookings
+- User identity — bookings tied to the user who created them
+- Users can only list their own bookings
 - Admin role with full access
 - Admin endpoints to manage hotels and room inventory without database reset (PATCH /hotels/{id}, PATCH /rooms/{room_id})
 
 ### v1.2
 - Pagination on list endpoints
 - Multi-property availability search by city (no hotel_id required) - consider POST-based search endpoint for complex filter support
-- Rate plans (non-refundable, free cancellation, breakfast included)
-- Cancellation policies per rate plan (free cancellation, partially refundable, non-refundable)
+- Rate plans and cancellation policies
 - Multi-room booking (book multiple rooms in one request)
 
 ### v1.3
